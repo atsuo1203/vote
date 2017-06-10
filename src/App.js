@@ -1,59 +1,8 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import VoteCreator from './components/VoteCreator'
+import VoteList from './components/VoteList'
 import './App.css';
-
-
-class VoteCreater extends Component {
-  // addボタンを押した時，voteをvoteListにaddする
-  handleSubmit = (e) => {
-    e.preventDefault();
-    let voteName = ReactDOM.findDOMNode(this.refs.vote).value.trim();
-    if (!voteName) return;
-
-    this.props.onAddVote({name: voteName});
-    ReactDOM.findDOMNode(this.refs.vote).value = "";
-  };
-
-  render() {
-    return (
-      <div className="voteCreater">
-        <h1>voteCreater</h1>
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" ref="vote"/>
-          <br />
-          <input type="submit" value="投票項目作成"/>
-        </form>
-      </div>
-    )
-  }
-}
-
-class VoteList extends Component {
-  render(){
-    let voteNodes = this.props.data.map(vote => {
-        return(
-          <div key={vote.id}>
-            <h3>{vote.name}</h3>
-            {vote.count}
-            <br/>
-            <input type="button" value="投票 +1" onClick={this.props.onCountUpVote.bind(this, vote.id)} />
-            <input type="button" value="投票 -1" onClick={this.props.onCountDownVote.bind(this, vote.id)} />
-            <input type="button" value="削除" onClick={this.props.onRemoveVote.bind(this, vote.id)} />
-            <hr/>
-          </div>
-        )
-    });
-
-    return(
-      <div className="voteList">
-        <h1>voteList</h1>
-        <hr/>
-        {voteNodes}
-        <br />
-      </div>
-    )
-  }
-}
 
 class App extends Component {
   constructor(props) {
@@ -172,12 +121,10 @@ class App extends Component {
       })
   };
 
-
-
   render() {
     return (
       <div>
-        <VoteCreater
+        <VoteCreator
           onAddVote={this.handleAddVote}
         />
         <VoteList
@@ -189,7 +136,6 @@ class App extends Component {
       </div>
     );
   }
-
 }
 
 export default App;
