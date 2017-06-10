@@ -27,7 +27,7 @@ class App extends Component {
         this.setState({vote: resVote})
       })
   };
-  
+
   // add
   handleAddVote = vote => {
     fetch("/api/vote/add", {
@@ -50,8 +50,8 @@ class App extends Component {
     let voteList = this.state.vote;
     let newVoteList = voteList;
 
-    newVoteList.forEach(function(val){
-      if(val.id === id) {
+    newVoteList.forEach(function (val) {
+      if (val.id === id) {
         val.count = val.count + 1;
       }
     });
@@ -66,18 +66,18 @@ class App extends Component {
       body: JSON.stringify({id: id}),
     })
       .then(res => {
-        if(res.status === 404)
+        if (res.status === 404)
           this.setState({vote: voteList});
       })
   };
-  
+
   // countDown(投票してカウントを減らす)
   handleCountDownVote = id => {
     let voteList = this.state.vote;
     let newVoteList = voteList;
 
-    newVoteList.forEach(function(val){
-      if(val.id === id) {
+    newVoteList.forEach(function (val) {
+      if (val.id === id) {
         val.count = val.count - 1;
       }
     });
@@ -92,7 +92,7 @@ class App extends Component {
       body: JSON.stringify({id: id}),
     })
       .then(res => {
-        if(res.status === 404)
+        if (res.status === 404)
           this.setState({vote: voteList});
       })
   };
@@ -100,10 +100,9 @@ class App extends Component {
   //削除
   handleRemoveVote = id => {
     let voteList = this.state.vote;
-    let newVoteList = [];
-    newVoteList.forEach(function(val){
-      if(val.id !== id)
-        newVoteList.push(val);
+    let newVoteList = voteList;
+    newVoteList.some(function (v, i) {
+      if (v.id === id) newVoteList.splice(i, 1);
     });
     this.setState({vote: newVoteList});
 
@@ -116,7 +115,7 @@ class App extends Component {
       body: JSON.stringify({id: id}),
     })
       .then(res => {
-        if(res.status===404)
+        if (res.status === 404)
           this.setState({vote: voteList})
       })
   };
