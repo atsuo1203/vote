@@ -102,7 +102,7 @@ class App extends Component {
     let voteList = this.state.vote;
     let newVoteList = [];
     newVoteList.forEach(function(val){
-      if(val.id != id)
+      if(val.id !== id)
         newVoteList.push(val);
     });
     this.setState({vote: newVoteList});
