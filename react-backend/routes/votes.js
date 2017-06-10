@@ -128,7 +128,7 @@ router.post('/remove', function (req, res) {
     // 削除vote以外のオブジェクト配列を作成する
     let newVoteList = [];
     voteList.forEach(function(val){
-      if(val.id != id)
+      if(val.id !== id)
         newVoteList.push(val);
     });
 
